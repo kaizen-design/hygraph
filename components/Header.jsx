@@ -17,15 +17,15 @@ const Header = () => {
     <div className="container mx-auto px-10 mb-8">
       <div className="border-b w-full flex justify-between items-center border-blue-400 py-8">
         <Link href="/">
-          <span className="cursor-pointer text-4xl text-white font-bold">
+          <span className="cursor-pointer text-4xl text-white font-bold hover:text-blue-200 transition">
             Hygraph
           </span>
         </Link>
         <ul className="hidden md:flex">
           {categories.map((category) => (
-            <li key={category.name} className="ml-4">
+            <li key={category.name} className="ml-6">
               <Link href={`/category/${category.slug}`}>
-                <span className="text-white cursor-pointer font-semibold">
+                <span className="text-white cursor-pointer font-semibold hover:text-blue-200 transition">
                   {category.name}
                 </span> 
               </Link>
