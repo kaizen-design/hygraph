@@ -13,7 +13,6 @@ export const getPosts = async () => {
               photo {
                 url
               }
-              bio
               id
             }
             categories {
@@ -64,19 +63,19 @@ export const getRelatedPosts = async (categories, slug) => {
     query GetRelatedPosts($slug: String!, $categories: [String!]) {
       posts(
         last: 3
-        where: {slug_not: "$slug", AND: {categories_some: {slug_in: "$categories"}}}
+        where: {slug_not: $slug, AND: {categories_some: {slug_in: $categories}}}
       ) {
-        id
-        title
-        slug
-        createdAt
-        featuredImage {
-          url
+          id
+          title
+          slug
+          createdAt
+          featuredImage {
+            url
+          }        
         }
-      }
     }
   `;
-  const result = await request(graphqlAPI, query);
+  const result = await request(graphqlAPI, query, { categories, slug });
   return result.posts;
 };
 
@@ -92,4 +91,38 @@ export const getCategories = async () => {
   `;
   const result = await request(graphqlAPI, query);
   return result.categories;
+};
+
+export const getPost = async (slug) => {
+  const query = gql`
+    query GetPost($slug: String!) {
+      post(where: {slug: $slug}) {
+        author {
+          name
+          photo {
+            url
+          }
+          bio
+          id
+        }
+        categories {          
+          slug          
+        }
+        createdAt
+        excerpt
+        featuredImage {
+          url
+        }
+        featuredPost
+        id
+        slug
+        title
+        content {
+          raw
+        }
+      }      
+    }    
+  `;
+  const result = await request(graphqlAPI, query, { slug });
+  return result.post;
 };

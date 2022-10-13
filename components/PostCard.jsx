@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 const PostCard = ({ post }) => {  
   return (
-    <article className="bg-white rounded-lg shadow-lg p-0 lg:p-8 mb-8">
+    <article className="bg-white rounded-lg shadow-lg lg:p-8 mb-8">
       <div className="relative rounded-lg shadow-md lg:pb-80 mb-4 lg:mb-8">
         <Link href={`/posts/${post.slug}`}>
           <img 
