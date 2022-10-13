@@ -1,8 +1,8 @@
 import moment from 'moment';
 import Link from 'next/link';
+// import Image from 'next/image';
 
-const PostCard = ({ post }) => {
-  console.log(post)
+const PostCard = ({ post }) => {  
   return (
     <article className="bg-white rounded-lg shadow-lg p-0 lg:p-8 mb-8">
       <div className="relative rounded-lg shadow-md lg:pb-80 mb-4 lg:mb-8">
@@ -10,7 +10,7 @@ const PostCard = ({ post }) => {
           <img 
             src={post.featuredImage.url} 
             alt={post.title} 
-            className="lg:absolute h-auto lg:h-80 w-full object-cover lg:shadow-lg rounded-t-lg lg:rounded-lg cursor-pointer"
+            className="lg:absolute transition h-auto lg:h-80 w-full object-cover lg:shadow-lg rounded-t-lg lg:rounded-lg cursor-pointer"
           />
         </Link>  
       </div>
@@ -22,7 +22,7 @@ const PostCard = ({ post }) => {
             </a>
           </Link>  
         </h2>
-        <div className="flex flex-wrap items-center justify-center mb-6">
+        <div className="flex flex-wrap items-center justify-center mb-4">
           <div className="flex items-center justify-center w-auto p-3">
             <img 
               src={post.author.photo.url} 
@@ -33,7 +33,7 @@ const PostCard = ({ post }) => {
             </p>  
           </div>
           <div className="flex items-center justify-center w-auto p-3">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 inline text-pink-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 inline text-pink-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
             </svg>
             <span className="text-gray-700 ml-2 font-medium lg:text-lg">
@@ -41,7 +41,7 @@ const PostCard = ({ post }) => {
             </span>
           </div>
         </div>
-        <p className="lg:text-lg text-gray-700 font-normal leading-relaxed mb-8">
+        <p className="lg:text-lg md:px-6 xl:px-16 text-gray-700 font-normal leading-relaxed mb-8">
           {post.excerpt}
         </p>
         <Link href={`/posts/${post.slug}`}>
