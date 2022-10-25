@@ -2,9 +2,9 @@ import { useState, useEffect, useRef } from "react";
 import { submitComment } from "../services";
 
 const CommentForm = ({ slug }) => {
-  const [error, setError] = useState(false);
-  const [localStorage, setLocalStorage] = useState(null);
-  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [error, setError] = useState(false);  
+  const [success, setSuccess] = useState(false);
+  
   const commentEl = useRef();
   const nameEl = useRef();
   const emailEl = useRef();
@@ -15,7 +15,8 @@ const CommentForm = ({ slug }) => {
     emailEl.current.value = window.localStorage.getItem('email');
   }, []);
 
-  const handleCommentSubmission = () => {
+  const handleCommentSubmission = (e) => {
+    e.preventDefault();
     setError(false);
 
     const { value: comment } = commentEl.current;
@@ -38,17 +39,15 @@ const CommentForm = ({ slug }) => {
       window.localStorage.removeItem('email', email);
     }
 
-    submitComment(commentObj).then((res) => {
-      setShowSuccessMessage(true);
-      setTimeout(() => {
-        setShowSuccessMessage(false)
-      }, 5000);
-    });
+    submitComment(commentObj).then(() => setSuccess(true));
 
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-lg p-8 pb-12 mb-8">
+    <form 
+      className="bg-white rounded-lg shadow-lg p-8 pb-12 mb-8" 
+      onSubmit={handleCommentSubmission}
+    >
       <h3 className="text-xl font-semibold border-b pb-4 mb-8">Leave a Reply</h3>
       <div className="grid grid-cols-1 gap-4 mb-4">
         <textarea 
@@ -79,28 +78,27 @@ const CommentForm = ({ slug }) => {
         />
       </div>
       <div className="grid grid-cols-1 gap-4 mb-4">
-        <div className="flex items-center">
+        <div className="">
           <input 
             ref={storeDataEl} 
             type="checkbox" 
             name="storeData"
             id="storeData"
           />
-          <label className="text-gray-500 cursor-pointer ml-2 text-sm" htmlFor="storeData">Save my name and email for the next time I comment.</label>
+          <label className="text-gray-500 cursor-pointer ml-2" htmlFor="storeData">Save my name and email for the next time I comment.</label>
         </div>
       </div>      
       <div className="mt-8">
         <button 
-          type="button" 
+          type="submit" 
           className="transition hover:bg-pink-700 inline-block bg-pink-600 text-white text-lg font-medium rounded-full px-8 py-3 cursor-pointer focus:ring-offset-2 focus:ring-2 focus:ring-pink-700/50"
-          onClick={handleCommentSubmission}
         >
           Post Comment
         </button>
         {error && <p className="text-xl float-right mt-3 font-semibold text-red-500">All fields are required.</p>}
-        {showSuccessMessage && <p className="text-xl float-right mt-3 font-semibold text-green-500">Comment submitted for review.</p>}
+        {success && <p className="text-xl float-right mt-3 font-semibold text-green-500">Comment submitted for review.</p>}
       </div>
-    </div>
+    </form>
   );
 };
 

@@ -14,21 +14,22 @@ export default async function comments(req, res) {
       $name: String!, 
       $email: String!, 
       $comment: String!, 
-      $slug: String!) {
-      createComment( 
-        data: { 
-          name: $name, 
-          email: $email, 
-          comment: $comment, 
-          post: { 
-            connect: { 
-              slug: $slug 
+      $slug: String!
+    ) {
+        createComment( 
+          data: { 
+            name: $name, 
+            email: $email, 
+            comment: $comment, 
+            post: { 
+              connect: { 
+                slug: $slug 
+              } 
             } 
-          } 
+          }
+        ) {
+          id
         }
-      ) {
-        id
-      }
     }
   `;
 

@@ -79,6 +79,30 @@ export const getRelatedPosts = async (categories, slug) => {
   return result.posts;
 };
 
+export const getFeaturedPosts = async () => {
+  const query = gql`
+    query GetFeaturedPosts {
+      posts(where: { featuredPost: true }) {
+        id
+        title
+        slug
+        createdAt
+        featuredImage {
+          url
+        }
+        author {
+          name
+          photo {
+            url
+          }         
+        }
+      }
+    }
+  `;
+  const result = await request(graphqlAPI, query);
+  return result.posts;
+};
+
 export const getCategories = async () => {
   const query = gql`
     query GetCategories {
@@ -138,3 +162,18 @@ export const submitComment = async (obj) => {
 
   return result.json();
 };
+
+export const getComments = async (slug) => {
+  const query = gql`
+    query GetComments($slug: String!) {
+      comments(where: {post: {slug: $slug}}) {
+        comment
+        id
+        name
+        createdAt
+      }
+    }
+  `;
+  const result = await request(graphqlAPI, query, { slug });
+  return result.comments;
+}

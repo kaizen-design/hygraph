@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import { PostCard, CategoriesWidget, PostWidget } from '../components';
 import { getPosts } from '../services';
+import { FeaturedPosts } from '../sections';
 
 export default function Home({ posts }) {  
   return (
@@ -9,6 +10,7 @@ export default function Home({ posts }) {
         <title>Hygraph</title>
         <meta name="description" content="Modern Blog App with React, GraphQL, NextJS, Tailwind CSS" />
       </Head>
+      <FeaturedPosts />
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         <div className="lg:col-span-8 col-span-1">
           {posts.map((post) => <PostCard key={post.node.id} post={post.node} /> )}
