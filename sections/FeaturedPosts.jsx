@@ -24,7 +24,6 @@ const responsive = {
   },
 };
 
-
 const FeaturedPosts = () => {
   const [featuredPosts, setFeaturedPosts] = useState([]);
   const [dataLoaded, setDataLoaded] = useState(false);
