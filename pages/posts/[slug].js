@@ -1,20 +1,27 @@
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import { 
   PostDetails, 
   Author,
   Comments,
   CommentForm,
   CategoriesWidget, 
-  PostWidget 
+  PostWidget,
+  Loader 
 } from '../../components';
 import { getPost, getPosts } from '../../services';
 
 const SinglePost = ({ post }) => {  
-  console.log(post)
+  const router = useRouter();
+
+  if (router.isFallback) {
+    return <Loader />;
+  }
+  
   return (
     <div className="container mx-auto px-4 sm:px-10 mb-8">
       <Head>
-        <title>{post.title} | Hygraph</title>
+        <title>{`${post.title} | Hygraph`}</title>
         <meta name="description" content={post.excerpt} />
       </Head>
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
@@ -53,6 +60,6 @@ export async function getStaticPaths() {
   }));
   return {
     paths,
-    fallback: false
+    fallback: true
   }
 }

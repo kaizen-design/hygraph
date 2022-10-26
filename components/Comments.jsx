@@ -1,14 +1,17 @@
 import { useState, useEffect } from "react";
+import { useRouter } from 'next/router';
 import moment from "moment";
 import parse from "html-react-parser";
 import { getComments } from "../services";
 
 const Comments = ({ slug }) => {
+  const router = useRouter();  
   const [comments, setComments] = useState([]);
+  
   useEffect(() => {
     getComments(slug).then((res) => setComments(res));
-  }, []);
-  console.log(comments);
+  }, [router.query.slug]);
+  
   return (
     <>
       {comments.length > 0 && (
