@@ -5,7 +5,7 @@ const graphqlAPI = process.env.NEXT_PUBLIC_HYGRAPH_ENDPOINT;
 export const getPosts = async () => {
   const query = gql`
     query GetPosts {
-      postsConnection {
+      postsConnection(orderBy: createdAt_DESC) {
         edges {
           node {
             author {
@@ -43,7 +43,7 @@ export const getPosts = async () => {
 export const getCategoryPosts = async (slug) => {
   const query = gql`
     query GetCategoryPosts($slug: String!) {
-      postsConnection(where: {categories_some: {slug: $slug}}) {
+      postsConnection(orderBy: createdAt_DESC, where: {categories_some: {slug: $slug}}) {
         edges {
           node {
             author {
