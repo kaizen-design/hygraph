@@ -9,7 +9,7 @@ A headless blog built with Next.js, GraphQL, and Hygraph CMS.
 - Full path from design to deploy
 
 ## Stack
-- Next.js (Pages Router)
+- Next.js
 - React
 - GraphQL (Hygraph API)
 - Tailwind CSS
